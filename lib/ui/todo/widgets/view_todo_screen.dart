@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../view_model/todo_view_model.dart';
+import '../view_model/list_todo_view_model.dart';
 
 class ViewTodoScreen extends StatelessWidget {
-  final TodoViewModel viewModel;
+  final ListTodoViewModel viewModel;
 
   const ViewTodoScreen({super.key, required this.viewModel});
 
