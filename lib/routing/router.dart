@@ -9,34 +9,49 @@ import 'package:todo_mvvm/ui/todo/view_model/save_todo_view_model.dart';
 import 'package:todo_mvvm/ui/todo/widgets/list_todo_screen.dart';
 import 'package:todo_mvvm/ui/todo/widgets/save_todo_screen.dart';
 
-GoRouter router(AuthRepository authRepository) => GoRouter(
-      routes: <RouteBase>[
-        GoRoute(
-          path: Routes.home,
-          builder: (BuildContext context, GoRouterState state) {
-            return const HomeScreen();
-          },
-        ),
-        GoRoute(
-          path: Routes.todo,
-          builder: (BuildContext context, GoRouterState state) {
-            final viewModel = ListTodoViewModel();
-            return ListTodoScreen(
-              viewModel: viewModel,
-            );
-          },
-          routes: <RouteBase>[],
-        ),
-        GoRoute(
-          path: Routes.createTodo,
-          builder: (context, state) {
-            final viewModel = SaveTodoViewModel(
-              todoRepository: context.read(),
-            );
-            return SaveTodoScreen(
-              viewModel: viewModel,
-            );
-          },
-        ),
-      ],
-    );
+final _navigationKey = GlobalKey<NavigatorState>();
+
+class AppRouter {
+  final AuthRepository authRepository;
+
+  AppRouter({
+    required this.authRepository,
+  });
+
+  late final GoRouter _router = GoRouter(
+    navigatorKey: _navigationKey,
+    debugLogDiagnostics: true,
+    initialLocation: Routes.home,
+    routes: <RouteBase>[
+      GoRoute(
+        path: Routes.home,
+        builder: (BuildContext context, GoRouterState state) {
+          return const HomeScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.todo,
+        builder: (BuildContext context, GoRouterState state) {
+          final viewModel = ListTodoViewModel();
+          return ListTodoScreen(
+            viewModel: viewModel,
+          );
+        },
+        routes: <RouteBase>[],
+      ),
+      GoRoute(
+        path: Routes.createTodo,
+        builder: (context, state) {
+          final viewModel = SaveTodoViewModel(
+            todoRepository: context.read(),
+          );
+          return SaveTodoScreen(
+            viewModel: viewModel,
+          );
+        },
+      ),
+    ],
+  );
+
+  GoRouter get router => _router;
+}

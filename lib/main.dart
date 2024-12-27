@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:todo_mvvm/routing/router.dart';
-
 import 'main_development.dart' as development;
 
 void main() {
@@ -9,7 +7,11 @@ void main() {
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  final AppRouter appRouter;
+  const MainApp({
+    required this.appRouter,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class MainApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routerConfig: router(context.read()),
+      routerConfig: appRouter.router,
     );
   }
 }
