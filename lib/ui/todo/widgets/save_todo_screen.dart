@@ -20,6 +20,7 @@ class SaveTodoScreen extends StatelessWidget {
           title: const Text(
             'Create a task',
           ),
+          forceMaterialTransparency: true,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(15),
