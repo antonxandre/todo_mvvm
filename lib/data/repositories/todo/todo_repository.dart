@@ -1,5 +1,17 @@
+import 'package:todo_mvvm/domain/models/todo/todo.dart';
 
-  /// Data source for activities.
-  abstract class TodoRepository {
-  /// Add the interface methods here
+import '../../../utils/result.dart';
+
+abstract class TodoRepository {
+  Future<Result<List<Todo>>> getTodos();
+
+  Future<Result<void>> addTodo(Todo todo);
+
+  Future<Result<void>> updateTodo(
+    Todo todo,
+  );
+
+  Future<Result<void>> deleteTodo(
+    int id,
+  );
 }

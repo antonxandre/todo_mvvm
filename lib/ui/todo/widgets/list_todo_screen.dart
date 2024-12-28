@@ -13,22 +13,41 @@ class ListTodoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              context.push(Routes.createTodo);
-            },
-            child: Text('Add Todo'),
-          ),
-          ListView(
-            shrinkWrap: true,
+      body: ListenableBuilder(
+        listenable: viewModel.load,
+        builder: (context, child) {
+          if (viewModel.load.running) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (viewModel.load.error) {
+            return Center(
+              child: Text('Failed to load todos'),
+            );
+          }
+          return Column(
             children: [
-              Text('Todo 1'),
-              Text('Todo 2'),
+              ElevatedButton(
+                onPressed: () {
+                  context.push(Routes.createTodo);
+                },
+                child: Text('Add Todo'),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: viewModel.todos.length,
+                itemBuilder: (context, index) {
+                  final todo = viewModel.todos[index];
+                  return Text(
+                    todo.title,
+                  );
+                },
+              )
             ],
-          )
-        ],
+          );
+        },
       ),
     );
   }

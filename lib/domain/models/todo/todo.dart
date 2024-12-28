@@ -1,4 +1,15 @@
+import 'package:floor/floor.dart';
 
+@entity
 class Todo {
-  /// Add the implementation of the model here
+  @primaryKey
+  final int id;
+  final String title;
+  final String description;
+
+  Todo({
+    required this.id,
+    required this.title,
+    required this.description,
+  });
 }

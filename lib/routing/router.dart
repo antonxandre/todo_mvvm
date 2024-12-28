@@ -32,12 +32,11 @@ class AppRouter {
       GoRoute(
         path: Routes.todo,
         builder: (BuildContext context, GoRouterState state) {
-          final viewModel = ListTodoViewModel();
+          final viewModel = ListTodoViewModel(todoRepository: context.read());
           return ListTodoScreen(
             viewModel: viewModel,
           );
         },
-        routes: <RouteBase>[],
       ),
       GoRoute(
         path: Routes.createTodo,
